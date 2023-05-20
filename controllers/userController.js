@@ -35,9 +35,12 @@ const addToDownline = async (userID, uplineID, level = 1, errorHandler, packageI
     //   }
     try {
         const selectedPackage = await Package.findById(packageID);
-        const activationFeeLevel = selectedPackage.referralBonusLevel; // Retrieve the activation fee level from the selected package
         const activationFee = selectedPackage.amount;
         const referralBonusAmount = activationFee * 0.25; // 25% of the activation fee
+
+        // Retrieve the user's package and its referralBonus from the user document
+        const user = await User.findById(userID).populate("package");
+        const userPackageLevel = user.package.referralBonusLevel;
 
         // add user to upline's downline and calculate referral bonus
         await User.updateOne(
@@ -50,7 +53,8 @@ const addToDownline = async (userID, uplineID, level = 1, errorHandler, packageI
         );
 
         // Stop giving upline bonus if the referralBonusLevel is reached
-        if (level < selectedPackage.referralBonusLevel && level < selectedPackage.referralBonusLevel) {
+        if (level <= userPackageLevel) {
+            // console.log(level);
             await User.updateOne(
                 { _id: uplineID },
                 {
@@ -63,12 +67,24 @@ const addToDownline = async (userID, uplineID, level = 1, errorHandler, packageI
                     $inc: { referralBonus: referralBonusAmount }, // Increment referralBonus by referralBonusAmount
                 }
             );
+        } else {
+            await User.updateOne(
+                { _id: uplineID },
+                {
+                    $push: {
+                        uplineBonus: {
+                            generation: `Generation ${level}`,
+                            bonusAmount: 0,
+                        },
+                    },
+                }
+            );
         }
         // get upline's upline
         const upline = await User.findById(uplineID).select("uplineID");
 
         // if upline exists and referralBonusLevel is not reached, add user to upline's downline
-        if (upline.uplineID && level <= selectedPackage.referralBonusLevel) {
+        if (upline.uplineID) {
             console.log(upline.uplineID);
             await addToDownline(userID, upline.uplineID, level + 1, errorHandler, selectedPackage);
         }
@@ -196,7 +212,7 @@ const registerUser = asyncHandler(async (req, res) => {
         username,
         password: hashedPassword,
         phoneNo,
-        package: selectedPackage.name,
+        package: selectedPackage,
         accountNo,
         accountName,
         bankName,
@@ -226,9 +242,8 @@ const registerUser = asyncHandler(async (req, res) => {
     // Add user to upline's downline
     try {
         const initialLevel = 1
-        await addToDownline(user.username, upline._id, initialLevel, errorHandler, selectedPackage._id);
+        await addToDownline(user._id, upline._id, initialLevel, errorHandler, selectedPackage._id);
     } catch (error) {
-
         res.status(400).json({ error: error.message });
         return; // Stop the execution if an error occurs
     }

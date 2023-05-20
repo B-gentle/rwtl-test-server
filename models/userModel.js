@@ -44,7 +44,7 @@ const userSchema = mongoose.Schema({
   },
 
   package: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Package',
     required: true,
   },
