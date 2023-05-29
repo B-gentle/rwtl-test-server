@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 #dependencies
 /node_modules
 
 #msc
 .env
-=======
-.env
->>>>>>> aea19527c23a6ed16779e6d24400132df6ff2d08
