@@ -19,7 +19,6 @@ const packageSchema = mongoose.Schema({
         default: 0.25,
     },
 
-
     referralBonusLevel: {
         type: Number,
         required: true

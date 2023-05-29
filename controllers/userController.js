@@ -1,3 +1,4 @@
+require('dotenv').config(); // Import and initialize dotenv package
 const asyncHandler = require("express-async-handler")
 const User = require("../models/userModel");
 const Package = require("../models/packageModel");
@@ -8,6 +9,7 @@ const Token = require("../models/tokenModel");
 const crypto = require("crypto");
 const sendEmail = require("../utilities/sendEmail");
 const addToDownline = require("../utilities/addToDownline");
+const axios = require('axios')
 
 
 // function to generate referral code
@@ -20,7 +22,6 @@ const generateReferralLink = (referralCode) => {
     return `https://rechargewise.com/register?ref=${referralCode}`;
 };
 
-
 // generate Token function
 const generateToken = (id) => {
     return jwt.sign({
@@ -32,54 +33,54 @@ const generateToken = (id) => {
 
 const calculateUplineBonuses = (paidAmount) => {
     const generations = [{
-            generation: "firstGeneration",
-            percentage: 25
-        },
-        {
-            generation: "secondGeneration",
-            percentage: 6
-        },
-        {
-            generation: "thirdGeneration ",
-            percentage: 5
-        },
-        {
-            generation: "fourthGeneration",
-            percentage: 2
-        },
-        {
-            generation: "fifthGeneration",
-            percentage: 1.5
-        },
-        {
-            generation: "sixthGeneration",
-            percentage: 1.5
-        },
-        {
-            generation: "seventhGeneration",
-            percentage: 1
-        },
-        {
-            generation: "eighthGeneration",
-            percentage: 1
-        },
-        {
-            generation: "ninthGeneration",
-            percentage: 1
-        },
-        {
-            generation: "tenthGeneration",
-            percentage: 1
-        }
+        generation: "firstGeneration",
+        percentage: 25
+    },
+    {
+        generation: "secondGeneration",
+        percentage: 6
+    },
+    {
+        generation: "thirdGeneration ",
+        percentage: 5
+    },
+    {
+        generation: "fourthGeneration",
+        percentage: 2
+    },
+    {
+        generation: "fifthGeneration",
+        percentage: 1.5
+    },
+    {
+        generation: "sixthGeneration",
+        percentage: 1.5
+    },
+    {
+        generation: "seventhGeneration",
+        percentage: 1
+    },
+    {
+        generation: "eighthGeneration",
+        percentage: 1
+    },
+    {
+        generation: "ninthGeneration",
+        percentage: 1
+    },
+    {
+        generation: "tenthGeneration",
+        percentage: 1
+    }
     ]
 
     const bonuses = generations.map((generation, index) => {
-            const bonusAmount = Math.round(paidAmount * (generation.percentage / 100));
-            return {
-                generation: generation.generation,
-                bonusAmount
-            }
+        const bonusAmount = Math.round(paidAmount * (generation.percentage / 100));
+        return {
+            generation: generation.generation,
+            bonusAmount
         }
+    }
 
     )
     return bonuses;
@@ -428,6 +429,47 @@ const resetPassword = asyncHandler(async (req, res) => {
     })
 })
 
+const buyRechargeCard = asyncHandler(async (req, res) => {
+    try {
+        const { user_Id, network, phoneNumber, amount } = req.body;
+        const userId = process.env.CLUB_KONNECT_USER_ID;
+        const apiKey = process.env.CLUB_KONNECT_API_KEY;
+        const port = 5000
+        // const apiUrl = `${process.env.CLUB_KONNECT_API}?UserID=${userId}&APIKey=${apiKey}&MobileNetwork=${network}&MobileNumber=${phoneNumber}&Amount=${amount}&RequestID=123&CallBackURL=http://localhost:${port}`;
+
+        const apiUrl = `${process.env.CLUB_KONNECT_API}?UserID=${userId}&APIKey=${apiKey}`;
+
+        // Make api request to buy recharge card
+        const response = await axios.post(apiUrl);
+
+        // Check if the api request was successful
+        if (response.data.status === 'success') {
+            // Calculate the bonus amount (4% of the recharge card amount)
+            const bonusAmount = (amount * 0.04).toFixed(2);
+
+            // Add the bonus amount to the user's balance
+            const user = await User.findById(user_Id);
+            user.commissionBalance += bonusAmount;
+            await user.save();
+
+            res.status(200).json({
+                message: "Recharge card purchased successfully",
+                bonusAmount
+            });
+        } else {
+            res.status(400).json({
+                message: response.data,
+                error: 'Failed to purchase recharge card'
+            });
+        }
+    } catch (error) {
+        // Handle any errors that occured during the process
+        res.status(500).json({
+            error: error
+        });
+    }
+})
+
 module.exports = {
     registerUser,
     loginUser,
@@ -437,5 +479,6 @@ module.exports = {
     updateUser,
     changePassword,
     forgotPassword,
-    resetPassword
+    resetPassword,
+    buyRechargeCard
 }
