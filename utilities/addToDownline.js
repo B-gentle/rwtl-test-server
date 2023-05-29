@@ -1,6 +1,7 @@
 const User = require("../models/userModel")
+const Package = require("../models/packageModel");
 
-const addToDownline = async (username, uplineID, userId, level = 1) => {
+const addToDownline = async (username, uplineID, userId, packageID, level = 1) => {
     try {
         // add user to upline's downline
         await User.updateOne({
@@ -14,9 +15,11 @@ const addToDownline = async (username, uplineID, userId, level = 1) => {
                 }
             }
         });
-
+        const selectedPackage = await Package.findById(packageID);
         const user = await User.findById(userId).populate("package");
         const userPackageLevel = user.package.referralBonusLevel;
+        const activationFee = selectedPackage.amount;
+        const referralBonusAmount = activationFee * 0.25; // 25% of the activation fee
 
         // Stop giving upline bonus if the referralBonusLevel is reached
         if (level <= userPackageLevel) {
@@ -53,7 +56,7 @@ const addToDownline = async (username, uplineID, userId, level = 1) => {
 
         //if upline Exist, add user to upline's downline
         if (upline?.upline) {
-            await addToDownline(username, upline.upline.ID, userId, level + 1)
+            await addToDownline(username, upline.upline.ID, userId, selectedPackage, level + 1)
         }
     } catch (error) {
         console.log(error)

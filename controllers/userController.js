@@ -140,7 +140,10 @@ const registerUser = asyncHandler(async (req, res) => {
         username,
         password,
         phoneNo,
-        package: selectedPackage.name,
+        package: {
+            name: selectedPackage.name,
+            ID: selectedPackage._id,
+        },
         paidAmount: selectedPackage.amount,
         // uplineBonus: uplineBonuses
     })
@@ -163,7 +166,8 @@ const registerUser = asyncHandler(async (req, res) => {
     user.isFreeUser = selectedPackage ? false : true;
 
     // add user to upline's downline
-    addToDownline(user.username, upline._id, user._id,)
+    const initialLevel = 1
+    addToDownline(user.username, upline._id, user._id, selectedPackage._id, initialLevel)
     const saveUSer = await user.save();
     // generate Token
     const token = generateToken(_id);
