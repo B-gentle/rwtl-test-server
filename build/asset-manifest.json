@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/static/css/main.4cf091d2.css",
+    "main.js": "/static/js/main.ba7d9cef.js",
+    "static/media/searching.gif": "/static/media/searching.2cee44d819667fbe3cf9.gif",
+    "static/media/RWT_LOGO-removebg-preview.png": "/static/media/RWT_LOGO-removebg-preview.decb3ce65b2192dbf8ec.png",
+    "static/media/profile-pic-icon.svg": "/static/media/profile-pic-icon.f95572e1bf8f55a9df36737ee2488d23.svg",
+    "static/media/withdraw.svg": "/static/media/withdraw.7bc28afd25c701f518f756b029dfcf02.svg",
+    "static/media/package-icon.svg": "/static/media/package-icon.a257e668b22779541ee300e28503a2a9.svg",
+    "static/media/dashboard.svg": "/static/media/dashboard.5d1b257905f297abc595cc9e40d9b322.svg",
+    "static/media/more.svg": "/static/media/more.5d1b257905f297abc595cc9e40d9b322.svg",
+    "static/media/google-icon.svg": "/static/media/google-icon.6caa77999ea772e2405c28e2425d3c65.svg",
+    "static/media/downline-card-icon.svg": "/static/media/downline-card-icon.641774003e29a4ba55715f18338ffa85.svg",
+    "static/media/setting.svg": "/static/media/setting.d4421e0e5a1fa67a86e4993ca1e66d4d.svg",
+    "static/media/24-support.svg": "/static/media/24-support.2954771d276bb82d3f9f4a4af563a7aa.svg",
+    "static/media/downlines.svg": "/static/media/downlines.826957875f77feec36ee685e247dbbeb.svg",
+    "index.html": "/index.html",
+    "static/media/share.svg": "/static/media/share.198f006af887e651dff61229438f9264.svg",
+    "static/media/notification.svg": "/static/media/notification.9be6ef4f4e5281657bcbe61baa721309.svg",
+    "static/media/pv-icon.svg": "/static/media/pv-icon.7ba8545939deefb1aaec33841df6a036.svg",
+    "static/media/transactions.svg": "/static/media/transactions.c99ed41b9d856d63169535c9e04b6697.svg",
+    "static/media/logout.svg": "/static/media/logout.4bafc41e2db04e0b1ca68aaf826679bd.svg",
+    "static/media/copy.svg": "/static/media/copy.ee483ce7238bbace540b30fdd169f767.svg",
+    "static/media/top-up.svg": "/static/media/top-up.7f02d9c6dbbc95ab1cfb3c9d70cde638.svg",
+    "static/media/send.svg": "/static/media/send.f0af162b5931ec53d20c39415734f185.svg",
+    "main.4cf091d2.css.map": "/static/css/main.4cf091d2.css.map",
+    "main.ba7d9cef.js.map": "/static/js/main.ba7d9cef.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4cf091d2.css",
+    "static/js/main.ba7d9cef.js"
+  ]
+}

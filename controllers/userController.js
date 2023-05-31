@@ -22,6 +22,7 @@ const generateReferralLink = (referralCode) => {
     return `https://rechargewise.com/register?ref=${referralCode}`;
 };
 
+
 // generate Token function
 const generateToken = (id) => {
     return jwt.sign({
@@ -144,6 +145,7 @@ const registerUser = asyncHandler(async (req, res) => {
             name: selectedPackage.name,
             ID: selectedPackage._id,
         },
+        pv: selectedPackage.pv,
         paidAmount: selectedPackage.amount,
         // uplineBonus: uplineBonuses
     })
@@ -167,7 +169,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // add user to upline's downline
     const initialLevel = 1
-    addToDownline(user.username, upline._id, user._id, selectedPackage._id, initialLevel)
+    addToDownline(user.username, upline._id, user._id, selectedPackage._id, selectedPackage.name, initialLevel, selectedPackage.pv)
     const saveUSer = await user.save();
     // generate Token
     const token = generateToken(_id);
@@ -191,10 +193,8 @@ const registerUser = asyncHandler(async (req, res) => {
         res.status(400)
         throw new Error("user not created successfully")
     }
-
-
-
 })
+
 
 const loginUser = asyncHandler(async (req, res) => {
     const {
@@ -259,8 +259,15 @@ const logout = asyncHandler(async (req, res) => {
 
 const getLoggedInUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id)
+        .populate('downlines.package.ID', 'name')
+
     if (user) {
         user.password = undefined
+        // Log the names of each package in the downlines array
+        user.downlines.forEach((downline) => {
+            console.log(downline.package.name);
+        });
+        
         res.status(200).json({
             data: user
         })
@@ -439,9 +446,9 @@ const buyRechargeCard = asyncHandler(async (req, res) => {
         const userId = process.env.CLUB_KONNECT_USER_ID;
         const apiKey = process.env.CLUB_KONNECT_API_KEY;
         const port = 5000
-        // const apiUrl = `${process.env.CLUB_KONNECT_API}?UserID=${userId}&APIKey=${apiKey}&MobileNetwork=${network}&MobileNumber=${phoneNumber}&Amount=${amount}&RequestID=123&CallBackURL=http://localhost:${port}`;
+        const apiUrl = `${process.env.CLUB_KONNECT_API}?UserID=${userId}&APIKey=${apiKey}&MobileNetwork=${network}&MobileNumber=${phoneNumber}&Amount=${amount}&RequestID=123&CallBackURL=http://localhost:${port}`;
 
-        const apiUrl = `${process.env.CLUB_KONNECT_API}?UserID=${userId}&APIKey=${apiKey}`;
+        // const apiUrl = `${process.env.CLUB_KONNECT_API}?UserID=${userId}&APIKey=${apiKey}`;
 
         // Make api request to buy recharge card
         const response = await axios.post(apiUrl);

@@ -14,7 +14,6 @@ const getPackages = async (req, res) => {
         res.status(400)
         throw new Error(error)
     }
-    
 }
 
 module.exports = { addPackage, getPackages }

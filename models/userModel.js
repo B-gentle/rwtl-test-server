@@ -45,7 +45,6 @@ const userSchema = mongoose.Schema({
     minLength: [6, "Password must be up to 6 characters"],
   },
 
-  // I did this so to work on the referral bonus
   package: {
     name: {
       type: String,
@@ -53,10 +52,9 @@ const userSchema = mongoose.Schema({
     },
     ID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Package",
-    },
+      ref: "Package"
+    }
   },
-
 
   accountNo: {
     type: String,
@@ -100,6 +98,17 @@ const userSchema = mongoose.Schema({
       userId: { type: mongoose.Schema.Types.ObjectId, },
       username: { type: String, ref: "User" },
       level: { type: Number },
+      pv: { type: Number },
+      package: {
+        name: {
+          type: String,
+          ref: "Package",
+        },
+        ID: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Package"
+        }
+      },
     },
   ],
 
@@ -129,6 +138,7 @@ const userSchema = mongoose.Schema({
     type: [uplineBonusSchema],
     default: []
   },
+
   commissionEarned: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Commission",

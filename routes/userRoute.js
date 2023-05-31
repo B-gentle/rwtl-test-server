@@ -12,7 +12,6 @@ router.get("/loginstatus", loginStatus)
 router.get("/getuser", protect, getLoggedInUser)
 router.patch("/updateuser", protect, updateUser)
 router.patch("/changepassword", protect, changePassword)
-
 router.post('/buyrechargecard', buyRechargeCard);
 
 

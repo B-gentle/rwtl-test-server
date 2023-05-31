@@ -9,6 +9,7 @@ const protect = asyncHandler(async (req, res, next) => {
             res.status(401)
             throw new Error("Not Authorized, please login")
         }
+
         // verify the token
         const decryptedToken = jwt.verify(token, process.env.jwtSecret)
         // get user id from token
@@ -17,6 +18,7 @@ const protect = asyncHandler(async (req, res, next) => {
             res.status(401)
             throw new Error("user not found")
         }
+        
         req.user = user
         next();
     } catch (error) {
