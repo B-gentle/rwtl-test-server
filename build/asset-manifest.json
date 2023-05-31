@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.4cf091d2.css",
-    "main.js": "/static/js/main.ba7d9cef.js",
+    "main.css": "/static/css/main.0bbc1c01.css",
+    "main.js": "/static/js/main.db16fad3.js",
     "static/media/searching.gif": "/static/media/searching.2cee44d819667fbe3cf9.gif",
     "static/media/RWT_LOGO-removebg-preview.png": "/static/media/RWT_LOGO-removebg-preview.decb3ce65b2192dbf8ec.png",
     "static/media/profile-pic-icon.svg": "/static/media/profile-pic-icon.f95572e1bf8f55a9df36737ee2488d23.svg",
@@ -11,23 +11,30 @@
     "static/media/more.svg": "/static/media/more.5d1b257905f297abc595cc9e40d9b322.svg",
     "static/media/google-icon.svg": "/static/media/google-icon.6caa77999ea772e2405c28e2425d3c65.svg",
     "static/media/downline-card-icon.svg": "/static/media/downline-card-icon.641774003e29a4ba55715f18338ffa85.svg",
+    "static/media/referrals.svg": "/static/media/referrals.e110cef9a79ce5f203ac7bf298d78c81.svg",
     "static/media/setting.svg": "/static/media/setting.d4421e0e5a1fa67a86e4993ca1e66d4d.svg",
     "static/media/24-support.svg": "/static/media/24-support.2954771d276bb82d3f9f4a4af563a7aa.svg",
     "static/media/downlines.svg": "/static/media/downlines.826957875f77feec36ee685e247dbbeb.svg",
+    "static/media/change-pin.svg": "/static/media/change-pin.4f904f23e56e0ffccd85ed9e6669e96e.svg",
     "index.html": "/index.html",
     "static/media/share.svg": "/static/media/share.198f006af887e651dff61229438f9264.svg",
     "static/media/notification.svg": "/static/media/notification.9be6ef4f4e5281657bcbe61baa721309.svg",
+    "static/media/change-password.svg": "/static/media/change-password.e63293fb66ef0e23c0949cb7b21474e5.svg",
     "static/media/pv-icon.svg": "/static/media/pv-icon.7ba8545939deefb1aaec33841df6a036.svg",
+    "static/media/profile.svg": "/static/media/profile.5a8b10e4e246da17b4aed65cde8ff727.svg",
     "static/media/transactions.svg": "/static/media/transactions.c99ed41b9d856d63169535c9e04b6697.svg",
+    "static/media/preference.svg": "/static/media/preference.09ffbf257f04c8abc7142b767181b614.svg",
     "static/media/logout.svg": "/static/media/logout.4bafc41e2db04e0b1ca68aaf826679bd.svg",
     "static/media/copy.svg": "/static/media/copy.ee483ce7238bbace540b30fdd169f767.svg",
+    "static/media/security.svg": "/static/media/security.e751492a9b71c492b126ff573f5863cd.svg",
     "static/media/top-up.svg": "/static/media/top-up.7f02d9c6dbbc95ab1cfb3c9d70cde638.svg",
+    "static/media/arrow-left.svg": "/static/media/arrow-left.4ec244e541999e247cfc56847db44f9e.svg",
     "static/media/send.svg": "/static/media/send.f0af162b5931ec53d20c39415734f185.svg",
-    "main.4cf091d2.css.map": "/static/css/main.4cf091d2.css.map",
-    "main.ba7d9cef.js.map": "/static/js/main.ba7d9cef.js.map"
+    "main.0bbc1c01.css.map": "/static/css/main.0bbc1c01.css.map",
+    "main.db16fad3.js.map": "/static/js/main.db16fad3.js.map"
   },
   "entrypoints": [
-    "static/css/main.4cf091d2.css",
-    "static/js/main.ba7d9cef.js"
+    "static/css/main.0bbc1c01.css",
+    "static/js/main.db16fad3.js"
   ]
 }
