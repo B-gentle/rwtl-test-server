@@ -259,14 +259,9 @@ const logout = asyncHandler(async (req, res) => {
 
 const getLoggedInUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id)
-        .populate('downlines.package.ID', 'name')
 
     if (user) {
         user.password = undefined
-        // Log the names of each package in the downlines array
-        user.downlines.forEach((downline) => {
-            console.log(downline.package.name);
-        });
         
         res.status(200).json({
             data: user

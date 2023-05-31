@@ -13,12 +13,18 @@ const protect = asyncHandler(async (req, res, next) => {
         // verify the token
         const decryptedToken = jwt.verify(token, process.env.jwtSecret)
         // get user id from token
-        const user = await User.findById(decryptedToken.id).select("-password");
-        if(!user){
+        const user = await User.findById(decryptedToken.id).select("-password")
+            .populate('downlines.package.ID', 'name')
+        if (!user) {
             res.status(401)
             throw new Error("user not found")
         }
         
+        // Log the names of each package in the downlines array
+        user.downlines.forEach((downline) => {
+            console.log(downline.package.name);
+        });
+
         req.user = user
         next();
     } catch (error) {
