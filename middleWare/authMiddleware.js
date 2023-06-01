@@ -15,15 +15,11 @@ const protect = asyncHandler(async (req, res, next) => {
         // get user id from token
         const user = await User.findById(decryptedToken.id).select("-password")
             .populate('downlines.package.ID', 'name')
+
         if (!user) {
             res.status(401)
             throw new Error("user not found")
         }
-        
-        // Log the names of each package in the downlines array
-        user.downlines.forEach((downline) => {
-            console.log(downline.package.name);
-        });
 
         req.user = user
         next();

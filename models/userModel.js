@@ -149,6 +149,11 @@ const userSchema = mongoose.Schema({
     default: 0
   },
 
+  instantCashBack: {
+    type: Number,
+    default: 0
+  }
+
 }, {
   timestamps: true
 });
