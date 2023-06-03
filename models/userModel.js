@@ -144,6 +144,7 @@ const userSchema = mongoose.Schema({
     ref: "Commission",
     // default: 0
   },
+
   commissionBalance: {
     type: Number,
     default: 0
@@ -152,7 +153,24 @@ const userSchema = mongoose.Schema({
   instantCashBack: {
     type: Number,
     default: 0
-  }
+  },
+
+  directReferral: {
+    userId: { type: mongoose.Schema.Types.ObjectId, },
+    username: { type: String, ref: "User" },
+    pv: { type: Number },
+    package: {type: String}
+  },
+
+  indirectReferral: [
+    {
+      userId: { type: mongoose.Schema.Types.ObjectId, },
+      username: { type: String, ref: "User" },
+      pv: { type: Number },
+      level: {type: Number},
+      package: {type: String}
+    }
+  ],
 
 }, {
   timestamps: true

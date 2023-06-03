@@ -5,7 +5,7 @@ const addToDownline = async (username, uplineID, userId, packageID, packageName,
     try {
         // add user to upline's downline
         await User.updateOne({
-            _id: uplineID   
+            _id: uplineID
         }, {
             $addToSet: {
                 downlines: {
@@ -43,6 +43,37 @@ const addToDownline = async (username, uplineID, userId, packageID, packageName,
         console.log(referralBonusAmount);
 
         // Stop giving upline bonus if the referralBonusLevel is reached
+        if (level == 1) {
+            await User.updateOne(
+                { _id: uplineID },
+                {
+                    $addToSet: {
+                        directReferral: {
+                            userId,
+                            username,
+                            pv: userPv,
+                            package: packageName
+                        }
+                    }
+                }
+            )
+        } else {
+            await User.updateOne(
+                { _id: uplineID },
+                {
+                    $push: {
+                        indirectReferral: {
+                            userId,
+                            username,
+                            pv: userPv,
+                            level,
+                            package: packageName
+                        }
+                    }
+                }
+            )
+        }
+
         if (level <= userPackageLevel) {
             await User.updateOne(
                 { _id: uplineID },
@@ -53,10 +84,10 @@ const addToDownline = async (username, uplineID, userId, packageID, packageName,
                             bonusAmount: referralBonusAmount,
                         },
                     },
-                    $inc: { 
+                    $inc: {
                         referralBonus: referralBonusAmount,
                         pv: userPv
-                     }, // Increment referralBonus by referralBonusAmount
+                    }, // Increment referralBonus by referralBonusAmount
                 }
             );
         } else {
