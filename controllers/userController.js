@@ -296,6 +296,7 @@ const updateUser = asyncHandler(async (req, res) => {
         user.accountName = req.body.accountName || user.accountName;
         const updatedUser = await user.save();
         if (updatedUser) {
+            updatedUser.password = undefined;
             res.status(200).json({
                 data: updatedUser
             })
