@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.aafeb494.css",
-    "main.js": "/static/js/main.6dc3030e.js",
+    "main.css": "/static/css/main.7c3aafc2.css",
+    "main.js": "/static/js/main.77fdeb12.js",
     "static/media/searching.gif": "/static/media/searching.2cee44d819667fbe3cf9.gif",
     "static/media/RWT_LOGO-removebg-preview.png": "/static/media/RWT_LOGO-removebg-preview.decb3ce65b2192dbf8ec.png",
     "static/media/profile-pic-icon.svg": "/static/media/profile-pic-icon.f95572e1bf8f55a9df36737ee2488d23.svg",
@@ -32,11 +32,11 @@
     "static/media/top-up.svg": "/static/media/top-up.7f02d9c6dbbc95ab1cfb3c9d70cde638.svg",
     "static/media/arrow-left.svg": "/static/media/arrow-left.4ec244e541999e247cfc56847db44f9e.svg",
     "static/media/send.svg": "/static/media/send.f0af162b5931ec53d20c39415734f185.svg",
-    "main.aafeb494.css.map": "/static/css/main.aafeb494.css.map",
-    "main.6dc3030e.js.map": "/static/js/main.6dc3030e.js.map"
+    "main.7c3aafc2.css.map": "/static/css/main.7c3aafc2.css.map",
+    "main.77fdeb12.js.map": "/static/js/main.77fdeb12.js.map"
   },
   "entrypoints": [
-    "static/css/main.aafeb494.css",
-    "static/js/main.6dc3030e.js"
+    "static/css/main.7c3aafc2.css",
+    "static/js/main.77fdeb12.js"
   ]
 }
