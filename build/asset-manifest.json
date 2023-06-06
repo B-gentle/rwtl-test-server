@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.e4d55cdf.css",
-    "main.js": "/static/js/main.c2094232.js",
+    "main.css": "/static/css/main.909fa8b4.css",
+    "main.js": "/static/js/main.b6c91e2a.js",
     "static/media/searching.gif": "/static/media/searching.2cee44d819667fbe3cf9.gif",
     "static/media/success.gif": "/static/media/success.95fafebee68b4bfddc62.gif",
     "static/media/airtel.svg": "/static/media/airtel.2797f9603ecca9370fde915491e826a0.svg",
@@ -36,11 +36,11 @@
     "static/media/top-up.svg": "/static/media/top-up.7f02d9c6dbbc95ab1cfb3c9d70cde638.svg",
     "static/media/arrow-left.svg": "/static/media/arrow-left.4ec244e541999e247cfc56847db44f9e.svg",
     "static/media/send.svg": "/static/media/send.f0af162b5931ec53d20c39415734f185.svg",
-    "main.e4d55cdf.css.map": "/static/css/main.e4d55cdf.css.map",
-    "main.c2094232.js.map": "/static/js/main.c2094232.js.map"
+    "main.909fa8b4.css.map": "/static/css/main.909fa8b4.css.map",
+    "main.b6c91e2a.js.map": "/static/js/main.b6c91e2a.js.map"
   },
   "entrypoints": [
-    "static/css/main.e4d55cdf.css",
-    "static/js/main.c2094232.js"
+    "static/css/main.909fa8b4.css",
+    "static/js/main.b6c91e2a.js"
   ]
 }
