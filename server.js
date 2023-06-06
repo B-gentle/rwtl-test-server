@@ -7,6 +7,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const packageRoute = require("./routes/packageRoute");
 const userRoute = require("./routes/userRoute");
+const transactionRoute = require("./routes/transactionRoutes");
 const errorHandler = require("./middleWare/errorMiddleware");
 
 
@@ -29,6 +30,7 @@ app.use(cookieParser());
 
 app.use("/api/packages", packageRoute)
 app.use("/api/users", userRoute)
+app.use("/api/transaction", transactionRoute);
 
 app.get('/*', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'));

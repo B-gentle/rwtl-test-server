@@ -149,6 +149,11 @@ const userSchema = mongoose.Schema({
     default: 0
   },
 
+  walletBalance:{
+    type: Number,
+    default: 0.00
+  }
+
 }, {
   timestamps: true
 });
