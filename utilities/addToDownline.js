@@ -118,5 +118,3 @@ const addToDownline = async (username, uplineID, userId, packageID, packageName,
 }
 
 module.exports = addToDownline
-
-module.exports = addToDownline
