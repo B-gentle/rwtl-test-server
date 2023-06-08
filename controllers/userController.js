@@ -8,6 +8,8 @@ const Token = require("../models/tokenModel");
 const crypto = require("crypto");
 const sendEmail = require("../utilities/sendEmail");
 const addToDownline = require("../utilities/addToDownline");
+const axios = require('axios');
+const { use } = require('../routes/userRoute');
 
 
 // function to generate referral code
@@ -145,6 +147,7 @@ const registerUser = asyncHandler(async (req, res) => {
         },
         pv: selectedPackage.pv,
         paidAmount: selectedPackage.amount,
+        instantCashBack: selectedPackage.instantCashBack
         // uplineBonus: uplineBonuses
     })
 
