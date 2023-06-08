@@ -22,7 +22,7 @@ const protect = asyncHandler(async (req, res, next) => {
         
         // Log the names of each package in the downlines array
         user.downlines.forEach((downline) => {
-            console.log(downline.package.name);
+           
         });
 
         req.user = user

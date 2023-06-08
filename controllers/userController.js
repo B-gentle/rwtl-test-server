@@ -129,7 +129,7 @@ const registerUser = asyncHandler(async (req, res) => {
     })
     if (!upline) {
         res.status(404)
-        throw new Error("upline username not found")
+        throw new Error("Invalid Referral Code")
     }
 
     //create new user
