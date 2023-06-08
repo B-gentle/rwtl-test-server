@@ -27,21 +27,6 @@ const addToDownline = async (username, uplineID, userId, packageID, packageName,
         const activationFee = selectedPackage.amount;
         const referralBonusAmount = activationFee * 0.25; // 25% of the activation fee
 
-        console.log("New User here");
-        console.log(username);
-        console.log(uplineID);
-        console.log(userId);
-        console.log(packageID);
-        console.log(packageName);
-        console.log(level);
-        console.log(userPv);
-        console.log(selectedPackage);
-        console.log(user);
-        console.log(userPackage);
-        console.log(userPackageLevel);
-        console.log(activationFee);
-        console.log(referralBonusAmount);
-
         // Stop giving upline bonus if the referralBonusLevel is reached
         if (level == 1) {
             await User.updateOne(
