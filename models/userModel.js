@@ -150,6 +150,14 @@ const userSchema = mongoose.Schema({
     default: 0
   },
 
+<<<<<<< HEAD
+=======
+  walletBalance:{
+    type: Number,
+    default: 0.00
+  },
+  
+>>>>>>> 849a43f8912e5849287cabfc70165372fa5c19be
   instantCashBack: {
     type: Number,
     default: 0
@@ -171,11 +179,14 @@ const userSchema = mongoose.Schema({
       package: {type: String}
     }
   ],
+<<<<<<< HEAD
   
   walletBalance:{
     type: Number,
     default: 0.00
   }
+=======
+>>>>>>> 849a43f8912e5849287cabfc70165372fa5c19be
 
 }, {
   timestamps: true
