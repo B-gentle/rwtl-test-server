@@ -1,71 +1,90 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-const transactionSchema = new mongoose.Schema({
-
+const transactionSchema = new mongoose.Schema(
+  {
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: "User"
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User'
     },
-
     transactionId: {
-        type: String,
-        required: [true, "Please add a transaction ID"]
+      type: String,
+      required: [true, 'Please add a transaction ID']
     },
-
     transactionType: {
-        type: String,
-        required: true,
-        enum: ['airtime', 'data', 'cableTv', 'exams']
+      type: String,
+      required: true,
+      enum: [
+        'airtime',
+        'data',
+        'cableTv',
+        'exams',
+        'transfer',
+        'crediting',
+        'withdrawal'
+      ]
     },
-
-    time: {
-        type: Date,
-        default: Date.now
-    },
-
-    commission: {
-        type: Number,
-        required: true
-    },
-
-    status: {
-        type: String
-    },
-
-    phoneNumber: {
-        type: String,
-        required: function () {
-            return this.type === 'airtime' || this.type === 'data'
+    transactionCategory: {
+      type: String,
+      required: true,
+      enum: ['credit', 'withdrawal'],
+      default: function () {
+        if (this.transactionType === 'crediting') {
+          return 'credit'
+        } else if (this.transactionType === 'withdrawal') {
+          return 'withdrawal'
         }
+      }
+    },
+    time: {
+      type: Date,
+      default: Date.now
+    },
+    commission: {
+      type: Number,
+      required: true
+    },
+    status: {
+      type: String
+    },
+    phoneNumber: {
+      type: String,
+      required: function () {
+        return (
+          this.transactionType === 'airtime' || this.transactionType === 'data'
+        )
+      }
     },
     IUC: {
-        type: String,
-        required: function () {
-            return this.type === 'cableTv'
-        }
+      type: String,
+      required: function () {
+        return this.transactionType === 'cableTv'
+      }
     },
     network: {
-        type: String,
-        required: function () {
-            return this.type === 'airtime' || this.type === 'data'
-        }
+      type: String,
+      required: function () {
+        return (
+          this.transactionType === 'airtime' || this.transactionType === 'data'
+        )
+      }
     },
     cableCompany: {
-        type: String,
-        required: function () {
-            return this.type === 'cableTv'
-        }
+      type: String,
+      required: function () {
+        return this.transactionType === 'cableTv'
+      }
     },
-
     amount: {
-        type: Number,
-        required: true
+      type: Number,
+      required: true
     }
-}, {
+  },
+  {
     timestamps: true
-});
+  }
+)
 
-const Transaction = mongoose.model('Transaction', transactionSchema);
+const Transaction = mongoose.model('Transaction', transactionSchema)
 
-module.exports = Transaction;
+module.exports = Transaction

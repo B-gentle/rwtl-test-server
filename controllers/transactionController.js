@@ -51,43 +51,55 @@ const purchaseAirtime = asyncHandler(async (req, res) => {
 })
 
 const walletTransfer = asyncHandler(async (req, res) => {
-  const { senderUsername, recipientUsername, amount } = req.body;
+  const { senderUsername, recipientUsername, amount } = req.body
 
   try {
-    // Find the sender user
-    const senderUser = await User.findOne({ username: senderUsername });
+    // Find the sender user and update the wallet balance
+    const senderUser = await User.findOneAndUpdate(
+      { username: senderUsername },
+      { $inc: { walletBalance: -amount } }, // Decrement the sender's balance
+      { new: true } // Return the updated document
+    )
 
     if (!senderUser) {
-      return res.status(404).json({ error: 'Sender user not found.' });
+      return res.status(404).json({ error: 'Sender user not found.' })
     }
 
     // Check if the sender has sufficient balance
-    if (senderUser.walletBalance < amount) {
-      return res.status(400).json({ error: 'Insufficient balance.' });
+    if (senderUser.walletBalance < 0) {
+      return res.status(400).json({ error: 'Insufficient balance.' })
     }
 
-    // Find the recipient user
-    const recipientUser = await User.findOne({ username: recipientUsername });
+    // Find the recipient user and update the wallet balance
+    const recipientUser = await User.findOneAndUpdate(
+      { username: recipientUsername },
+      { $inc: { walletBalance: amount } }, // Increment the recipient's balance
+      { new: true } // Return the updated document
+    )
 
     if (!recipientUser) {
-      return res.status(404).json({ error: 'Recipient user not found.' });
+      return res.status(404).json({ error: 'Recipient user not found.' })
     }
 
-    // Update the wallet balances
-    senderUser.walletBalance -= amount;
-    recipientUser.walletBalance += amount;
+    // Create a new transaction record for the transfer
+    const transaction = new Transaction({
+      user: senderUser._id,
+      transactionId: 'your_transaction_id', // Replace with actual transaction ID
+      transactionType: 'transfer',
+      transactionCategory: 'credit',
+      commission: 0, // Set the commission value accordingly
+      status: 'completed',
+      amount: amount
+    })
 
-    // Save the changes
-    await senderUser.save();
-    await recipientUser.save();
+    await transaction.save()
 
-    res.json({ message: 'Funds transferred successfully.' });
+    res.json({ message: 'Funds transferred successfully.' })
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'An error occurred.' });
+    console.error(error)
+    res.status(500).json({ error: 'An error occurred.' })
   }
-});
-
+})
 
 module.exports = {
   purchaseAirtime,
