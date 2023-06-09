@@ -19,11 +19,6 @@ const protect = asyncHandler(async (req, res, next) => {
             res.status(401)
             throw new Error("user not found")
         }
-        
-        // Log the names of each package in the downlines array
-        user.downlines.forEach((downline) => {
-           
-        });
 
         req.user = user
         next();
