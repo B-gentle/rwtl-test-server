@@ -81,8 +81,8 @@ const walletTransfer = asyncHandler(async (req, res) => {
       return res.status(404).json({ error: 'Recipient user not found.' })
     }
 
-    // Create a new transaction record for the transfer
-    const transaction = new Transaction({
+    // Create a new credit transaction record for the transfer
+    const creditTransaction = new Transaction({
       user: senderUser._id,
       transactionId: 'your_transaction_id', // Replace with actual transaction ID
       transactionType: 'transfer',
@@ -92,7 +92,20 @@ const walletTransfer = asyncHandler(async (req, res) => {
       amount: amount
     })
 
-    await transaction.save()
+    await creditTransaction.save()
+
+    // Create a new debit transaction record for the sender
+    const debitTransaction = new Transaction({
+      user: senderUser._id,
+      transactionId: 'your_transaction_id', // Replace with actual transaction ID
+      transactionType: 'transfer',
+      transactionCategory: 'debit',
+      commission: 0, // Set the commission value accordingly
+      status: 'completed',
+      amount: amount
+    })
+
+    await debitTransaction.save()
 
     res.json({ message: 'Funds transferred successfully.' })
   } catch (error) {
@@ -100,6 +113,7 @@ const walletTransfer = asyncHandler(async (req, res) => {
     res.status(500).json({ error: 'An error occurred.' })
   }
 })
+
 
 module.exports = {
   purchaseAirtime,

@@ -21,13 +21,13 @@ const transactionSchema = new mongoose.Schema(
         'exams',
         'transfer',
         'crediting',
-        'withdrawal'
+        'withdrawal',
       ]
     },
     transactionCategory: {
       type: String,
       required: true,
-      enum: ['credit', 'withdrawal'],
+      enum: ['credit', 'withdrawal', 'debit'],
       default: function () {
         if (this.transactionType === 'crediting') {
           return 'credit'
