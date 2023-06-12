@@ -17,7 +17,7 @@ const generateReferralCode = (id, username) => {
 
 // function to generate referral link
 const generateReferralLink = (referralCode) => {
-    return `https://rechargewise.com/register?ref=${referralCode}`;
+    return `https://myrechargewise.com/signup?referralLink=${referralCode}`;
 };
 
 
