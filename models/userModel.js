@@ -177,6 +177,11 @@ const userSchema = mongoose.Schema({
     }
   ],
 
+  userTransactionPercent: {
+    type: Number,
+    default: 40
+  }
+
 }, {
   timestamps: true
 });

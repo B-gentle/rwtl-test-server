@@ -29,6 +29,8 @@ const protect = asyncHandler(async (req, res, next) => {
       ...user._doc,
       transactionHistory: transactionHistory
     }
+
+    console.log(user)
     next()
   } catch (error) {
     res.status(401)

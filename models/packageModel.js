@@ -22,6 +22,17 @@ const packageSchema = mongoose.Schema({
     referralBonusLevel: {
         type: Number,
         required: true
+    },
+
+    transaction: {
+        transactionLevels: {
+            type: Number,
+            required: true
+        },
+        transactionProfit: {
+            type: Number,
+            required: true
+        }
     }
 }, {
     timestamps: true

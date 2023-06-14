@@ -93,7 +93,6 @@ const addToDownline = async (username, uplineID, userId, packageID, packageName,
         // get upline's upline
         const upline = await User.findById(uplineID)
 
-
         //if upline Exist, add user to upline's downline
         if (upline?.upline) {
             await addToDownline(username, upline.upline.ID, userId, selectedPackage._id, selectedPackage.name, level + 1, userPv)

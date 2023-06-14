@@ -9,6 +9,7 @@ const packageRoute = require("./routes/packageRoute");
 const userRoute = require("./routes/userRoute");
 const transactionRoute = require("./routes/transactionRoutes");
 const errorHandler = require("./middleWare/errorMiddleware");
+// const insertPackages = require("./middleWare/insertPackages")
 
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
+// app.use(insertPackages);
 
 app.use(cors({
     origin: ["https://68.183.80.39/", "http://localhost:3000", "http://localhost:3001", "https://myrechargewise.com"],

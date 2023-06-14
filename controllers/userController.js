@@ -22,7 +22,6 @@ const generateReferralLink = (referralCode) => {
     return `https://rechargewise.com/register?ref=${referralCode}`;
 };
 
-
 // generate Token function
 const generateToken = (id) => {
     return jwt.sign({
