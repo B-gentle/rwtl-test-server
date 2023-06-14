@@ -19,7 +19,7 @@ const generateReferralCode = (id, username) => {
 
 // function to generate referral link
 const generateReferralLink = (referralCode) => {
-    return `https://rechargewise.com/register?ref=${referralCode}`;
+    return `https://myrechargewise.com/signup?referralLink=${referralCode}`;
 };
 
 // generate Token function
@@ -130,7 +130,7 @@ const registerUser = asyncHandler(async (req, res) => {
     })
     if (!upline) {
         res.status(404)
-        throw new Error("upline username not found")
+        throw new Error("Invalid Referral Code")
     }
 
     //create new user
