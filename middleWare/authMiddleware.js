@@ -16,18 +16,13 @@ const protect = asyncHandler(async (req, res, next) => {
     const user = await User.findById(decryptedToken.id)
       .select('-password')
       .populate('downlines.package.ID', 'name')
+
     if (!user) {
       res.status(401)
       throw new Error('user not found')
     }
 
-    // Populate user's transaction history
-    const transactionHistory = await Transaction.find({ user: user._id })
-
-    req.user = {
-      ...user._doc,
-      transactionHistory: transactionHistory
-    }
+    req.user = user
     next()
   } catch (error) {
     res.status(401)
