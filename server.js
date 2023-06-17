@@ -9,7 +9,6 @@ const packageRoute = require("./routes/packageRoute");
 const userRoute = require("./routes/userRoute");
 const transactionRoute = require("./routes/transactionRoutes");
 const errorHandler = require("./middleWare/errorMiddleware");
-// const insertPackages = require("./middleWare/insertPackages")
 
 
 const app = express();

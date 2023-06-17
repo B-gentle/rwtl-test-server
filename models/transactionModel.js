@@ -26,7 +26,6 @@ const transactionSchema = new mongoose.Schema(
     },
     transactionCategory: {
       type: String,
-      required: true,
       enum: ['credit', 'withdrawal', 'debit'],
       default: function () {
         if (this.transactionType === 'crediting') {

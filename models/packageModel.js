@@ -25,11 +25,11 @@ const packageSchema = mongoose.Schema({
     },
 
     transaction: {
-        transactionLevels: {
+        level: {
             type: Number,
             required: true
         },
-        transactionProfit: {
+        percentage: {
             type: Number,
             required: true
         }
