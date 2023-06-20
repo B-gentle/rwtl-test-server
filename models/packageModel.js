@@ -14,10 +14,12 @@ const packageSchema = mongoose.Schema({
         required: true
     },
 
-    instantCashBack: {
-        type: Number,
-        default: 0.25,
-    },
+    instantCashBack: [
+        {
+            level: {type: Number},
+            bonusPercentage: {type: Number},
+        }
+    ],
 
     referralBonusLevel: {
         type: Number,

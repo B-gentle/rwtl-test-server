@@ -1,17 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 
-const uplineBonusSchema = mongoose.Schema({
-  generation: {
-    type: String,
-    required: true,
-  },
-  bonusAmount: {
-    type: Number,
-    default: 0,
-  },
-})
-
 const userSchema = mongoose.Schema({
   fullname: {
     type: String,
@@ -22,7 +11,9 @@ const userSchema = mongoose.Schema({
     type: String,
     required: [true, "Please input a username"],
     unique: true,
-    trim: true
+    trim: true,
+    lowercase: true,
+
   },
 
   email: {
@@ -41,7 +32,13 @@ const userSchema = mongoose.Schema({
 
   password: {
     type: String,
-    required: [true, "Please enter a password"],
+    // required: [true, "Please enter a password"],
+    minLength: [6, "Password must be up to 6 characters"],
+  },
+
+  passkey: {
+    type: String,
+    // required: [true, "Please enter a password"],
     minLength: [6, "Password must be up to 6 characters"],
   },
 
@@ -73,10 +70,10 @@ const userSchema = mongoose.Schema({
     // required: true
   },
 
-  isFreeUser: {
-    type: Boolean,
-    default: true
-  },
+  // isFreeUser: {
+  //   type: Boolean,
+  //   default: true
+  // },
 
   paidAmount: {
     type: Number,
@@ -123,7 +120,6 @@ const userSchema = mongoose.Schema({
     }
   },
 
-
   referralBonus: {
     type: Number,
     default: 0,
@@ -134,52 +130,19 @@ const userSchema = mongoose.Schema({
     default: 0
   },
 
-  uplineBonus: {
-    type: [uplineBonusSchema],
-    default: []
-  },
-
-  commissionEarned: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Commission",
-    // default: 0
-  },
-
   commissionBalance: {
     type: Number,
     default: 0
   },
 
-  walletBalance:{
-    type: Number,
-    default: 0.00
-  },
-  
-  instantCashBack: {
+  withdrawableCommission: {
     type: Number,
     default: 0
   },
 
-  directReferral: {
-    userId: { type: mongoose.Schema.Types.ObjectId, },
-    username: { type: String, ref: "User" },
-    pv: { type: Number },
-    package: {type: String}
-  },
-
-  indirectReferral: [
-    {
-      userId: { type: mongoose.Schema.Types.ObjectId, },
-      username: { type: String, ref: "User" },
-      pv: { type: Number },
-      level: {type: Number},
-      package: {type: String}
-    }
-  ],
-
-  userTransactionPercent: {
+  walletBalance: {
     type: Number,
-    default: 40
+    default: 0.00
   }
 
 }, {
@@ -197,6 +160,14 @@ userSchema.pre("save", async function (next) {
   this.password = hashedPassword;
   next();
 })
+
+//convert all usernames to lower case
+userSchema.pre('save', function (next) {
+  if (this.isModified('username')) {
+    this.username = this.username.toLowerCase();
+  }
+  next();
+});
 
 const User = mongoose.model("User", userSchema);
 module.exports = User;
