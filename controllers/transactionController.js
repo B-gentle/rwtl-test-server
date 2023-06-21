@@ -49,7 +49,7 @@ const purchaseAirtime = asyncHandler(async (req, res) => {
   // Check if the API request was successful
   if (status === 200) {
     let discountRate
-    
+
 
     // Determine the discount rate based on the mobile network
     switch (network) {
@@ -368,7 +368,32 @@ const walletTransfer = asyncHandler(async (req, res) => {
   }
 })
 
+const withdrawCommission = asyncHandler(async (req, res) => {
+  const { amount } = req.body;
+
+  // Find the user by their ID
+  const user = await User.findById(req.user.id);
+
+  // Check if the user has enough withdrawableCommission to cover the requested amount
+  if (user.withdrawableCommission < amount) {
+    return res.status(400).json({
+      message: 'Insufficient withdrawable commission.' 
+    });
+  }
+
+  // Deduct the withdrawn amount from the user's withdrawableCommission and update the walletBalance
+  user.withdrawableCommission -= amount;
+  user.walletBalance += amount;
+
+  // Save the updated user data
+  await user.save();
+
+  res.status(200).json({ message: 'Commission withdrawn to wallet balance successfully.' });
+});
+
+
 module.exports = {
   purchaseAirtime,
-  walletTransfer
+  walletTransfer,
+  withdrawCommission
 }

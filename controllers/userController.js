@@ -146,7 +146,7 @@ const registerUser = asyncHandler(async (req, res) => {
         },
         pv: selectedPackage.pv,
         paidAmount: selectedPackage.amount,
-        instantCashBack: selectedPackage.instantCashBack
+        instantCashBackBonus: selectedPackage.amount * 0.25
         // uplineBonus: uplineBonuses
     })
 

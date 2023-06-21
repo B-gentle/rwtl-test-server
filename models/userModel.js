@@ -143,8 +143,12 @@ const userSchema = mongoose.Schema({
   walletBalance: {
     type: Number,
     default: 0.00
-  }
+  },
 
+  instantCashBackBonus: {
+    type: Number,
+    default: 0.00
+  }
 }, {
   timestamps: true
 });
