@@ -7,7 +7,7 @@ const errorHandler = require("../middleWare/errorMiddleware");
 const Token = require("../models/tokenModel");
 const crypto = require("crypto");
 const sendEmail = require("../utilities/sendEmail");
-const addToDownline = require("../utilities/addToDownline");
+const { addToDownline, handleReferralBonus } = require("../utilities/addToDownline");
 const axios = require('axios');
 const { use } = require('../routes/userRoute');
 
@@ -146,7 +146,7 @@ const registerUser = asyncHandler(async (req, res) => {
         },
         pv: selectedPackage.pv,
         paidAmount: selectedPackage.amount,
-        instantCashBackBonus: selectedPackage.amount * 0.25
+        instantCashBackBonus: selectedPackage.amount * 0.25,
         // uplineBonus: uplineBonuses
     })
 
@@ -170,6 +170,20 @@ const registerUser = asyncHandler(async (req, res) => {
     // add user to upline's downline
     const initialLevel = 1
     addToDownline(user.username, upline._id, user._id, selectedPackage._id, selectedPackage.name, initialLevel, selectedPackage.pv)
+
+    // handle referral bonus for upline
+    // Get the activation fee from the user
+    const activationFee = selectedPackage.amount;
+    console.log('Activation Fee:', activationFee);
+
+    // Get the upline's package
+    const uplinePackage = await Package.findById(upline.package.ID).populate("uplineBonuses");
+    console.log('Upline Package:', uplinePackage);
+
+    handleReferralBonus(upline._id, initialLevel, uplinePackage, activationFee, selectedPackage.pv);
+
+
+    // Save the new user
     const saveUSer = await user.save();
     // generate Token
     const token = generateToken(_id);
@@ -262,7 +276,7 @@ const getLoggedInUser = asyncHandler(async (req, res) => {
 
     if (user) {
         user.password = undefined
-        
+
         res.status(200).json({
             data: user
         })

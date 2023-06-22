@@ -14,7 +14,7 @@ const packageSchema = mongoose.Schema({
         required: true
     },
 
-    instantCashBack: [
+    uplineBonuses: [
         {
             level: {type: Number},
             bonusPercentage: {type: Number},
